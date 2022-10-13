@@ -1,0 +1,9 @@
+export const BASE_URL = "https://api.openweathermap.org/";
+export const DATA_URL = `${BASE_URL}data/2.5/`;
+export const POLLUTION_URL = `${DATA_URL}air_pollution`;
+export const GEO_URL = `${BASE_URL}/geo/1.0/direct`;
+export const FORECAST_URL = `${DATA_URL}forecast`;
+export const CURRENT_URL = `${DATA_URL}weather`;
+export const API_KEY = "9cafb52078077411bf7a0a82cbc790c3";
+export const ICON_URL = "http://openweathermap.org/img/wn/";
+export const DEGREE = "°";

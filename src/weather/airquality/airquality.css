@@ -1,0 +1,59 @@
+.air-quality {
+	margin-top: 2.5rem;
+	padding: 20px;
+	border-radius: 28px;
+	background-color: var(--light-primary-color);
+}
+
+.air-quality .title {
+	font-size: 22px;
+	font-weight: 600;
+}
+
+.aqi {
+	display: flex;
+	align-items: center;
+}
+
+.aqi-image {
+	filter: var(--filter);
+}
+
+.aqi-text {
+	font-size: 20px;
+	filter: var(--filter);
+}
+.aqi-description {
+	font-size: 12px;
+	margin-top: 0.1rem;
+}
+
+.aqi-components {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+	gap: 20px;
+}
+
+.aqi-component {
+	background-color: var(--colorLevel);
+	border-radius: 28px;
+	padding-block: 1rem;
+	text-align: center;
+}
+
+.aqi-component-value {
+	font-size: 28px;
+	font-weight: 600;
+	margin-block: 2rem;
+}
+
+.aqi-component-name {
+	display: inline;
+	margin-block: 0.5rem;
+}
+
+.aqi-component-unit {
+	margin-block: 0.5rem;
+	font-size: 10px;
+	display: inline;
+}

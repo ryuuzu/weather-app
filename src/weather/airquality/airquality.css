@@ -21,7 +21,7 @@
 
 .aqi-text {
 	font-size: 20px;
-	filter: var(--filter);
+	color: var(--color);
 }
 .aqi-description {
 	font-size: 12px;

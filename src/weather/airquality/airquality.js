@@ -3,11 +3,11 @@ import windIcon from "../icons/Wind.svg";
 import "./airquality.css";
 
 const qualityFilters = {
-	1: "invert(74%) sepia(72%) saturate(5604%) hue-rotate(86deg) brightness(120%) contrast(128%)",
-	2: "invert(99%) sepia(90%) saturate(3328%) hue-rotate(0deg) brightness(102%) contrast(103%)",
-	3: "invert(83%) sepia(28%) saturate(6747%) hue-rotate(359deg) brightness(101%) contrast(105%)",
-	4: "invert(56%) sepia(41%) saturate(3895%) hue-rotate(359deg) brightness(100%) contrast(108%)",
-	5: "invert(35%) sepia(50%) saturate(5802%) hue-rotate(2deg) brightness(104%) contrast(104%)",
+	1: "invert(68%) sepia(26%) saturate(661%) hue-rotate(63deg) brightness(95%) contrast(88%);",
+	2: "invert(73%) sepia(6%) saturate(3692%) hue-rotate(29deg) brightness(109%) contrast(83%)",
+	3: "invert(85%) sepia(55%) saturate(2039%) hue-rotate(345deg) brightness(92%) contrast(104%)",
+	4: "invert(68%) sepia(42%) saturate(1934%) hue-rotate(348deg) brightness(90%) contrast(112%)",
+	5: "invert(31%) sepia(84%) saturate(1632%) hue-rotate(319deg) brightness(97%) contrast(87%)",
 };
 const aqiText = [
 	{ text: "Good", description: "Today's air is YUM YUM!" },
@@ -68,14 +68,14 @@ function createAirQualityStuffs(airQualityData) {
 
 	const mainAQI = document.createElement("div");
 	mainAQI.classList.add("aqi");
-	mainAQI.style.setProperty(
-		"--filter",
-		qualityFilters[airQualityData.aqi.value]
-	);
 
 	const windImage = new Image();
 	windImage.src = windIcon;
 	windImage.classList.add("aqi-image");
+	windImage.style.setProperty(
+		"--filter",
+		qualityFilters[airQualityData.aqi.value]
+	);
 	mainAQI.appendChild(windImage);
 
 	const mainAQITexts = document.createElement("div");
@@ -83,6 +83,10 @@ function createAirQualityStuffs(airQualityData) {
 	const aqiText = document.createElement("div");
 	aqiText.textContent = airQualityData.aqi.text.text;
 	aqiText.classList.add("aqi-text");
+	aqiText.style.setProperty(
+		"--color",
+		componentSafetyColors[airQualityData.aqi.value-1]
+	);
 	mainAQITexts.appendChild(aqiText);
 
 	const aqiDescription = document.createElement("div");

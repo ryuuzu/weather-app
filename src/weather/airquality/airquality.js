@@ -89,7 +89,7 @@ function createAirQualityStuffs(airQualityData) {
 	aqiDescription.textContent = airQualityData.aqi.text.description;
 	aqiDescription.classList.add("aqi-description");
 	mainAQITexts.appendChild(aqiDescription);
-	
+
 	mainAQI.appendChild(mainAQITexts);
 
 	const aqiComponentsHolder = document.createElement("div");
@@ -122,7 +122,6 @@ function createAirQualityStuffs(airQualityData) {
 		aqiComponent.appendChild(aqiComponentUnit);
 
 		aqiComponentsHolder.appendChild(aqiComponent);
-		console.log(component);
 	});
 
 	airQualityContainer.appendChild(mainAQI);

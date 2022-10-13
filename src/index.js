@@ -1,8 +1,8 @@
+import "./index.css";
 import { format } from "date-fns";
 import updateForecast from "./weather/forecast/forecast";
-
-import "./index.css";
 import updateAirQuality from "./weather/airquality/airquality";
+import { getLatLonFor } from "./weather/utils";
 
 let units = "metric";
 let city = "Kathmandu";
@@ -14,5 +14,6 @@ document.querySelector(".current-date").textContent = format(
 );
 
 updateForecast(city, units);
-let latLonData;
-updateAirQuality(27.7167, 85.3167);
+getLatLonFor(city).then((latLonData) => {
+	updateAirQuality(latLonData.lat, latLonData.lon);
+});

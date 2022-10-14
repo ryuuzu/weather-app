@@ -1,14 +1,7 @@
 import { POLLUTION_URL, API_KEY } from "../consts";
-import windIcon from "../icons/Wind.svg";
+import { getMaterialSymbolRounded } from "../utils";
 import "./airquality.css";
 
-const qualityFilters = {
-	1: "invert(68%) sepia(26%) saturate(661%) hue-rotate(63deg) brightness(95%) contrast(88%);",
-	2: "invert(73%) sepia(6%) saturate(3692%) hue-rotate(29deg) brightness(109%) contrast(83%)",
-	3: "invert(85%) sepia(55%) saturate(2039%) hue-rotate(345deg) brightness(92%) contrast(104%)",
-	4: "invert(68%) sepia(42%) saturate(1934%) hue-rotate(348deg) brightness(90%) contrast(112%)",
-	5: "invert(31%) sepia(84%) saturate(1632%) hue-rotate(319deg) brightness(97%) contrast(87%)",
-};
 const aqiText = [
 	{ text: "Good", description: "Today's air is YUM YUM!" },
 	{ text: "Fair", description: "I think this is fair enough." },
@@ -97,27 +90,24 @@ function createAirQualityStuffs(airQualityData) {
 		airQualityContainer.removeChild(child);
 	}
 
+	const aqiTopBar = document.createElement("div");
+	aqiTopBar.classList.add("aqi-topbar");
+
 	const mainAQI = document.createElement("div");
-	mainAQI.classList.add("aqi");
-
-	const windImage = new Image();
-	windImage.src = windIcon;
-	windImage.classList.add("aqi-image");
-	windImage.style.setProperty(
-		"--filter",
-		qualityFilters[airQualityData.aqi.value]
-	);
-	mainAQI.appendChild(windImage);
-
-	const mainAQITexts = document.createElement("div");
-
-	const aqiText = document.createElement("div");
-	aqiText.textContent = airQualityData.aqi.text.text;
-	aqiText.classList.add("aqi-text");
-	aqiText.style.setProperty(
+	mainAQI.style.setProperty(
 		"--color",
 		componentSafetyColors[airQualityData.aqi.value - 1]
 	);
+	mainAQI.classList.add("aqi");
+
+	mainAQI.appendChild(getMaterialSymbolRounded("air", ["aqi-image"]));
+
+	const mainAQITexts = document.createElement("div");
+	mainAQITexts.classList.add("aqi-texts");
+
+	const aqiText = document.createElement("div");
+	aqiText.innerHTML += airQualityData.aqi.text.text;
+	aqiText.classList.add("aqi-text");
 	mainAQITexts.appendChild(aqiText);
 
 	const aqiDescription = document.createElement("div");
@@ -131,7 +121,8 @@ function createAirQualityStuffs(airQualityData) {
 	refreshButton.classList.add("button", "refresh");
 	refreshButton.textContent = "Refresh";
 
-	mainAQI.appendChild(refreshButton);
+	aqiTopBar.appendChild(mainAQI);
+	aqiTopBar.appendChild(refreshButton);
 
 	const aqiComponentsHolder = document.createElement("div");
 	aqiComponentsHolder.classList.add("aqi-components");
@@ -153,7 +144,7 @@ function createAirQualityStuffs(airQualityData) {
 		);
 	});
 
-	airQualityContainer.appendChild(mainAQI);
+	airQualityContainer.appendChild(aqiTopBar);
 	airQualityContainer.appendChild(aqiComponentsHolder);
 }
 

@@ -10,18 +10,25 @@
 	font-weight: 600;
 }
 
+.aqi-topbar {
+	padding-block: 20px;
+	display: flex;
+	justify-content: space-between;
+}
+
 .aqi {
 	display: flex;
+	gap: 10px;
 	align-items: center;
-	justify-content: space-between;
-	width: 100%;
 }
 
 .aqi-image {
-	filter: var(--filter);
+	font-size: 40px;
+	color: var(--color);
 }
 
 .aqi-text {
+	font-weight: 600;
 	font-size: 20px;
 	color: var(--color);
 }

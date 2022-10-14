@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Varela+Round&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Varela+Round&display=swap');
 
 :root {
 	--primary-color: rgb(49, 48, 96);
@@ -20,7 +20,7 @@ body {
 
 .main-container {
 	display: grid;
-	grid-template-columns: 3fr 2fr;
+	grid-template-columns: 5fr 2fr;
 	height: 100%;
 }
 
@@ -36,7 +36,7 @@ body {
 }
 
 .panel {
-	padding: 1rem;
+	padding: 20px 50px;
 	height: 100%;
 }
 
@@ -45,7 +45,6 @@ body {
 }
 
 .panel.left {
-	padding: 10px 30px;
 	background-color: var(--primary-color);
 }
 
@@ -80,4 +79,22 @@ body {
 
 .button:hover {
 	background-color: var(--secondary-color-hover);
+}
+
+.right.panel .topbar .search {
+	width: 400px;
+	margin-inline: 50px;
+	font-size: 18px;
+	border: none;
+	border-radius: 7px;
+	background-color: var(--light-primary-color);
+	color: var(--text-color);
+	font-family: inherit;
+	padding: 10px 20px;
+}
+
+.right.panel .topbar .search::placeholder {
+	color: var(--text-color);
+	opacity: 0.7;
+	font-style: italic;
 }

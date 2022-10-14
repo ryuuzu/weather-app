@@ -1,0 +1,51 @@
+.current-location {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-color: var(--secondary-color);
+	margin: 30px 60px;
+	padding: 20px;
+	border-radius: 20px;
+}
+.location-holder {
+	display: flex;
+	align-self: flex-start;
+	align-items: center;
+}
+
+.location-holder > * {
+	display: inline;
+}
+
+.location-name {
+	font-size: 18px;
+}
+
+.temp {
+	margin-top: 5px;
+	font-size: 78px;
+	font-family: "Bebas Neue";
+	transform: translateX(18%);
+}
+
+.weather-status {
+	font-size: 18px;
+	margin-bottom: 2rem;
+}
+
+.wind-data,
+.humidity-data {
+	display: flex;
+	align-items: center;
+	font-size: 18px;
+	gap: 15px;
+	width: 70%;
+	justify-content: space-between;
+}
+
+.wind-label,
+.humidity-label {
+	display: flex;
+	gap: 5px;
+	align-items: center;
+}

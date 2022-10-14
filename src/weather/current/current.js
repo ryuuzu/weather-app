@@ -41,6 +41,9 @@ function addCurrentWeatherHTML(weatherData, container) {
 	locationName.textContent = weatherData.name;
 	locationHolder.appendChild(locationName);
 
+	const mainWeatherStuffs = document.createElement("div");
+	mainWeatherStuffs.classList.add("main-weather");
+
 	const weatherIcon = document.createElement("img");
 	weatherIcon.src = `${ICON_URL}${weatherData.icon}@2x.png`;
 	weatherIcon.classList.add("weather-icon");
@@ -56,6 +59,14 @@ function addCurrentWeatherHTML(weatherData, container) {
 	const weatherStatus = document.createElement("div");
 	weatherStatus.classList.add("weather-status");
 	weatherStatus.textContent = weatherData.weather.name;
+
+	mainWeatherStuffs.appendChild(weatherIcon);
+	mainWeatherStuffs.appendChild(todayDate);
+	mainWeatherStuffs.appendChild(tempDisplay);
+	mainWeatherStuffs.appendChild(weatherStatus);
+
+	const secondaryWeatherStuffs = document.createElement("div");
+	secondaryWeatherStuffs.classList.add("secondary-weather");
 
 	const windHolder = document.createElement("div");
 	windHolder.classList.add("wind-data");
@@ -87,14 +98,13 @@ function addCurrentWeatherHTML(weatherData, container) {
 	humidityValue.textContent = `${weatherData.humidity}%`;
 	humidityHolder.appendChild(humidityValue);
 
+	secondaryWeatherStuffs.appendChild(windHolder);
+	secondaryWeatherStuffs.appendChild(humidityHolder);
+
 	const elements = [
 		locationHolder,
-		weatherIcon,
-		todayDate,
-		tempDisplay,
-		weatherStatus,
-		windHolder,
-		humidityHolder,
+		mainWeatherStuffs,
+		secondaryWeatherStuffs,
 	];
 
 	elements.forEach((element) => container.appendChild(element));

@@ -1,40 +1,50 @@
 .current-location {
 	display: flex;
 	flex-direction: column;
+	height: 50%;
 	align-items: center;
+	justify-content: space-between;
 	background-color: var(--secondary-color);
 	margin: 30px 60px;
-	padding: 20px;
+	padding: 30px;
 	border-radius: 20px;
 }
-.location-holder {
+.current-location .location-holder {
 	display: flex;
 	align-self: flex-start;
 	align-items: center;
 }
 
-.location-holder > * {
+.current-location .location-holder > * {
 	display: inline;
 }
 
-.location-name {
+.current-location .location-name {
 	font-size: 18px;
 }
 
-.temp {
+.current-location .main-weather,
+.current-location .secondary-weather {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.current-location .temp {
 	margin-top: 5px;
-	font-size: 78px;
+	font-size: 84px;
 	font-family: "Bebas Neue";
 	transform: translateX(18%);
 }
 
-.weather-status {
+.current-location .weather-status {
 	font-size: 18px;
 	margin-bottom: 2rem;
 }
 
-.wind-data,
-.humidity-data {
+.current-location .wind-data,
+.current-location .humidity-data {
 	display: flex;
 	align-items: center;
 	font-size: 18px;
@@ -43,8 +53,8 @@
 	justify-content: space-between;
 }
 
-.wind-label,
-.humidity-label {
+.current-location .wind-label,
+.current-location .humidity-label {
 	display: flex;
 	gap: 5px;
 	align-items: center;

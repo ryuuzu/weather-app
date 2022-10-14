@@ -7,7 +7,7 @@
 
 .forecast-item {
 	background-color: var(--light-primary-color);
-	color: white;
+	color: var(--text-color);
 	text-align: center;
 	padding: 10px 5px;
 	border-radius: 28px;

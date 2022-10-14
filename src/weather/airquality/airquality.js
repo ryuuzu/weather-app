@@ -1,4 +1,4 @@
-import { POLLUTION_URL, API_KEY, ICON_URL, DEGREE } from "../consts";
+import { POLLUTION_URL, API_KEY } from "../consts";
 import windIcon from "../icons/Wind.svg";
 import "./airquality.css";
 
@@ -59,6 +59,37 @@ function getSafetyLevel(amount, componentID) {
 	return level;
 }
 
+function getComponentsHTML(components) {
+	return components.map((component) => {
+		let colorLevel;
+		const aqiComponent = document.createElement("div");
+		aqiComponent.classList.add("aqi-component");
+		if (component.level < 0) {
+			colorLevel = "rgb(131, 171, 255)";
+		} else {
+			colorLevel = componentSafetyColors[component.level];
+		}
+		aqiComponent.style.setProperty("--colorLevel", colorLevel);
+
+		const aqiComponentValue = document.createElement("div");
+		aqiComponentValue.textContent = component.value;
+		aqiComponentValue.classList.add("aqi-component-value");
+		aqiComponent.appendChild(aqiComponentValue);
+
+		const aqiComponentName = document.createElement("div");
+		aqiComponentName.innerHTML = component.name;
+		aqiComponentName.classList.add("aqi-component-name");
+		aqiComponent.appendChild(aqiComponentName);
+
+		const aqiComponentUnit = document.createElement("div");
+		aqiComponentUnit.innerHTML = ` (${component.unit})`;
+		aqiComponentUnit.classList.add("aqi-component-unit");
+		aqiComponent.appendChild(aqiComponentUnit);
+
+		return aqiComponent;
+	});
+}
+
 function createAirQualityStuffs(airQualityData) {
 	const airQualityContainer = document.querySelector(".air-quality-holder");
 
@@ -85,7 +116,7 @@ function createAirQualityStuffs(airQualityData) {
 	aqiText.classList.add("aqi-text");
 	aqiText.style.setProperty(
 		"--color",
-		componentSafetyColors[airQualityData.aqi.value-1]
+		componentSafetyColors[airQualityData.aqi.value - 1]
 	);
 	mainAQITexts.appendChild(aqiText);
 
@@ -96,43 +127,37 @@ function createAirQualityStuffs(airQualityData) {
 
 	mainAQI.appendChild(mainAQITexts);
 
+	const refreshButton = document.createElement("button");
+	refreshButton.classList.add("button", "refresh");
+	refreshButton.textContent = "Refresh";
+
+	mainAQI.appendChild(refreshButton);
+
 	const aqiComponentsHolder = document.createElement("div");
 	aqiComponentsHolder.classList.add("aqi-components");
 
-	airQualityData.components.forEach((component) => {
-		let colorLevel;
-		const aqiComponent = document.createElement("div");
-		aqiComponent.classList.add("aqi-component");
-		if (component.level < 0) {
-			colorLevel = "rgb(131, 171, 255)";
-		} else {
-			colorLevel = componentSafetyColors[component.level];
-		}
-		aqiComponent.style.setProperty("--colorLevel", colorLevel);
+	getComponentsHTML(airQualityData.components).forEach((componentHTML) =>
+		aqiComponentsHolder.appendChild(componentHTML)
+	);
 
-		const aqiComponentValue = document.createElement("div");
-		aqiComponentValue.textContent = component.value;
-		aqiComponentValue.classList.add("aqi-component-value");
-		aqiComponent.appendChild(aqiComponentValue);
-
-		const aqiComponentName = document.createElement("div");
-		aqiComponentName.innerHTML = component.name;
-		aqiComponentName.classList.add("aqi-component-name");
-		aqiComponent.appendChild(aqiComponentName);
-
-		const aqiComponentUnit = document.createElement("div");
-		aqiComponentUnit.innerHTML = ` (${component.unit})`;
-		aqiComponentUnit.classList.add("aqi-component-unit");
-		aqiComponent.appendChild(aqiComponentUnit);
-
-		aqiComponentsHolder.appendChild(aqiComponent);
+	refreshButton.addEventListener("click", async (event) => {
+		airQualityData = await getAirQualty(
+			airQualityData.location.lat,
+			airQualityData.location.lon
+		);
+		Array.from(aqiComponentsHolder.childNodes).forEach((childNode) =>
+			aqiComponentsHolder.removeChild(childNode)
+		);
+		getComponentsHTML(airQualityData.components).forEach((componentHTML) =>
+			aqiComponentsHolder.appendChild(componentHTML)
+		);
 	});
 
 	airQualityContainer.appendChild(mainAQI);
 	airQualityContainer.appendChild(aqiComponentsHolder);
 }
 
-export default async function updateAirQuality(lat, lon) {
+async function getAirQualty(lat, lon) {
 	const response = await fetch(
 		`${POLLUTION_URL}?lat=${lat}&lon=${lon}&appid=${API_KEY}`
 	);
@@ -141,6 +166,7 @@ export default async function updateAirQuality(lat, lon) {
 	const airQualityData = data.list[0];
 
 	const filteredData = {
+		location: data.coord,
 		aqi: {
 			value: airQualityData.main.aqi,
 			text: aqiText[airQualityData.main.aqi - 1],
@@ -244,6 +270,10 @@ export default async function updateAirQuality(lat, lon) {
 			},
 		],
 	};
+	return filteredData;
+}
 
+export default async function updateAirQuality(lat, lon) {
+	const filteredData = await getAirQualty(lat, lon);
 	createAirQualityStuffs(filteredData);
 }

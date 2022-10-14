@@ -5,11 +5,13 @@
 	--light-primary-color: rgb(60, 59, 112);
 	--dark-primary-color: rgb(45, 42, 84);
 	--secondary-color: rgb(131, 171, 255);
+	--secondary-color-hover: rgba(131, 171, 255, 0.7);
+	--text-color: rgb(255, 255, 255);
 }
 
 body {
 	font-family: "Varela Round", sans-serif;
-	color: white;
+	color: var(--text-color);
 	height: 100vh;
 	margin: 0;
 	width: 100vw;
@@ -45,4 +47,37 @@ body {
 .panel.left {
 	padding: 10px 30px;
 	background-color: var(--primary-color);
+}
+
+.details-container {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-areas:
+		"forecast forecast"
+		"aqi sun-stats";
+}
+
+.forecast {
+	grid-area: forecast;
+}
+
+.air-quality {
+	grid-area: aqi;
+}
+
+.button {
+	border-radius: 7px;
+	font-family: inherit;
+	width: 30%;
+	padding: 10px 20px;
+	font-size: 15px;
+	background-color: var(--secondary-color);
+	color: var(--text-color);
+	border: none;
+	cursor: pointer;
+	transition: 300ms;
+}
+
+.button:hover {
+	background-color: var(--secondary-color-hover);
 }

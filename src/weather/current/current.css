@@ -31,6 +31,10 @@
 	align-items: center;
 }
 
+.current-location .secondary-weather {
+	gap: 20px;
+}
+
 .current-location .temp {
 	margin-top: 5px;
 	font-size: 84px;
@@ -55,6 +59,56 @@
 
 .current-location .wind-label,
 .current-location .humidity-label {
+	display: flex;
+	gap: 5px;
+	align-items: center;
+}
+
+.other-location {
+	background-color: var(--background-color);
+	margin: 30px 60px;
+	display: grid;
+	row-gap: 10px;
+	grid-template-rows: 1fr 1fr;
+	grid-template-columns: 1fr 1fr;
+	grid-template-areas:
+		"wind location"
+		"humidity temp";
+	padding: 10px 20px;
+	border-radius: 20px;
+}
+
+.other-location .location-holder {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.other-location .wind-data {
+	grid-area: wind;
+}
+
+.other-location .temp {
+	text-align: right;
+	font-family: "Bebas Neue";
+	font-size: 25px;
+}
+
+.other-location .humidity-data {
+	grid-area: humidity;
+}
+
+.other-location .wind-data,
+.other-location .humidity-data {
+	display: flex;
+	align-items: center;
+	font-size: 15px;
+	gap: 15px;
+	justify-content: space-between;
+}
+
+.other-location .wind-label,
+.other-location .humidity-label {
 	display: flex;
 	gap: 5px;
 	align-items: center;

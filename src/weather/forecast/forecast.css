@@ -17,6 +17,12 @@
 	background-color: var(--secondary-color);
 }
 
+.forecast-temp {
+	font-family: "Bebas Neue";
+	font-size: 30px;
+	transform: translateX(2%);
+}
+
 .forecast-item > * {
 	margin-top: 0.25rem;
 }

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Varela+Round&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Varela+Round&display=swap");
 
 :root {
 	--primary-color: rgb(49, 48, 96);
@@ -91,6 +91,10 @@ body {
 	color: var(--text-color);
 	font-family: inherit;
 	padding: 10px 20px;
+}
+
+.right.panel .topbar .search:focus {
+	outline: none;
 }
 
 .right.panel .topbar .search::placeholder {

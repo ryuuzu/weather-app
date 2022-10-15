@@ -9,6 +9,16 @@ export async function getGeoCode(locationName) {
 	return await response.json();
 }
 
+export function generateRandomNumber(maxVal) {
+	return Math.floor(Math.random() * maxVal);
+}
+
+export function generateRandomColor() {
+	return `rgb(${generateRandomNumber(256)}, ${generateRandomNumber(
+		256
+	)}, ${generateRandomNumber(256)})`;
+}
+
 export function getMaterialSymbolRounded(iconName, additionalClassLists = []) {
 	const iconHTML = domParser
 		.parseFromString(

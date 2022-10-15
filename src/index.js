@@ -8,7 +8,7 @@ import updateWeather from "./weather/current/current";
 
 let units = "metric";
 let city = "Kathmandu";
-let cities = ["Kathmandu", "Tokyo", "Bucharest"];
+let cities = ["Bucharest", "Kathmandu", "Tokyo"];
 
 document.querySelector(".current-time").textContent = format(new Date(), "p");
 document.querySelector(".current-date").textContent = format(

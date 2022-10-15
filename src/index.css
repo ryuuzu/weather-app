@@ -4,6 +4,7 @@
 	--primary-color: rgb(49, 48, 96);
 	--light-primary-color: rgb(60, 59, 112);
 	--dark-primary-color: rgb(45, 42, 84);
+	--accent-color: rgb(180, 141, 120);
 	--secondary-color: rgb(131, 171, 255);
 	--secondary-color-hover: rgba(131, 171, 255, 0.7);
 	--text-color: rgb(255, 255, 255);
@@ -15,13 +16,12 @@ body {
 	height: 100vh;
 	margin: 0;
 	width: 100vw;
-	overflow: hidden;
+	overflow-x: hidden;
 }
 
 .main-container {
 	display: grid;
 	grid-template-columns: 5fr 2fr;
-	height: 100%;
 }
 
 .current-time {
@@ -37,7 +37,6 @@ body {
 
 .panel {
 	padding: 20px 50px;
-	height: 100%;
 }
 
 .panel.right {
@@ -50,6 +49,7 @@ body {
 
 .details-container {
 	display: grid;
+	column-gap: 2.5rem;
 	grid-template-columns: 1fr 1fr;
 	grid-template-areas:
 		"forecast forecast"

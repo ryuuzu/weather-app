@@ -3,7 +3,7 @@ import "./current.css";
 import { format } from "date-fns";
 import { generateRandomColor, getMaterialSymbolRounded } from "../utils";
 
-async function getWeatherData(city, unit) {
+export async function getWeatherData(city, unit) {
 	const response = await fetch(
 		`${CURRENT_URL}?q=${city}&appid=${API_KEY}&units=${unit}`
 	);
@@ -22,6 +22,7 @@ async function getWeatherData(city, unit) {
 		wind: data.wind.speed,
 		sunrise: data.sys.sunrise,
 		sunset: data.sys.sunset,
+		timezone: data.timezone,
 	};
 
 	return filteredData;
@@ -179,7 +180,7 @@ function addCurrentWeatherHTML(weatherData, container) {
 	elements.forEach((element) => container.appendChild(element));
 }
 
-export default async function updateWeather(cities, unit) {
+export async function updateWeather(cities, unit) {
 	let currentCity = cities[0];
 	let otherCities = cities.slice(1);
 

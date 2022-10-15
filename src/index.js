@@ -4,7 +4,8 @@ import { format } from "date-fns";
 import updateForecast from "./weather/forecast/forecast";
 import updateAirQuality from "./weather/airquality/airquality";
 import { getLatLonFor } from "./weather/utils";
-import updateWeather from "./weather/current/current";
+import { updateWeather } from "./weather/current/current";
+import updateSunStats from "./weather/sunstats/sunstats";
 
 let units = "metric";
 let city = "Kathmandu";
@@ -25,3 +26,4 @@ getLatLonFor(city).then((latLonData) => {
 	updateAirQuality(latLonData.lat, latLonData.lon);
 });
 updateWeather(cities, units);
+updateSunStats(cities, units);

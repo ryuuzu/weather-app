@@ -1,0 +1,60 @@
+.sun-stats {
+	grid-area: sun-stats;
+	margin-top: 2.5rem;
+	padding: 20px;
+	border-radius: 28px;
+	background-color: var(--light-primary-color);
+}
+.sun-stats .title {
+	font-size: 22px;
+	font-weight: 600;
+}
+
+.sun-stats-holder {
+	margin-top: 2rem;
+}
+
+.sun-stats-holder > * {
+	margin-bottom: 2rem;
+}
+
+.sun-stat {
+	padding: 15px 20px;
+	border-radius: 20px;
+	display: grid;
+	gap: 0.5rem;
+	background-color: var(--dark-primary-color);
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 1fr 1fr;
+	grid-template-areas:
+		"topbar topbar"
+		"sunrise sunset";
+}
+
+.sun-stat .location-holder {
+	display: flex;
+	align-items: center;
+}
+
+.sun-stat .sun-stat-topbar {
+	grid-area: topbar;
+	display: flex;
+	justify-content: space-between;
+}
+
+.sun-stat .sunrise,
+.sun-stat .sunset {
+	display: flex;
+	gap: 20px;
+}
+
+.sunset-icon,
+.sunrise-icon {
+	color: var(--accent-color);
+	font-size: 40px;
+}
+
+.sunset-time,
+.sunrise-time {
+	color: var(--secondary-color);
+}

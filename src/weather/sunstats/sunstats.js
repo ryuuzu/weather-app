@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import { formatInTimeZone, utcToZonedTime } from "date-fns-tz";
+import { utcToZonedTime } from "date-fns-tz";
 import { getWeatherData } from "../current/current";
 import { getMaterialSymbolRounded, getPolyfillTimezone } from "../utils";
 import "./sunstats.css";
@@ -102,7 +102,7 @@ export default async function updateSunStats(cities, unit) {
 
 	let citiesWeatherData = await Promise.all(
 		cities.map(async (city) => {
-			return await getWeatherData(city, unit);
+			return await getWeatherData(city.lat, city.lon, unit);
 		})
 	);
 

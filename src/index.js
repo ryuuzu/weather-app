@@ -2,22 +2,31 @@ import "./index.css";
 import { format } from "date-fns";
 import updateForecast from "./weather/forecast/forecast";
 import updateAirQuality from "./weather/airquality/airquality";
-import { getLatLonFor } from "./weather/utils";
+import { getGeoCode, getLatLonFor } from "./weather/utils";
 import { updateWeather } from "./weather/current/current";
 import updateSunStats from "./weather/sunstats/sunstats";
 
 const DEFAULT_UNIT = "metric";
-const DEFAULT_CITIES = ["Bucharest", "Kathmandu", "Tokyo"];
+const DEFAULT_CITIES = [
+	{ name: "Bucharest", lat: 44.4361414, lon: 26.1027202, country: "RO" },
+	{
+		name: "Tokyo",
+		lat: 35.6828387,
+		lon: 139.7594549,
+		country: "JP",
+	},
+];
 
-let units, cities;
+let units = "";
+let cities = [];
 
 function saveLocalData() {
-	localStorage.setItem("cities", cities);
+	localStorage.setItem("cities", JSON.stringify(cities));
 	localStorage.setItem("units", units);
 }
 
 function loadLocalData() {
-	cities = localStorage.getItem("cities");
+	cities = JSON.parse(localStorage.getItem("cities"));
 	if (cities === null) {
 		cities = DEFAULT_CITIES;
 	}
@@ -25,6 +34,7 @@ function loadLocalData() {
 	if (units === null) {
 		units = DEFAULT_UNIT;
 	}
+	saveLocalData();
 }
 
 function refreshPage() {
@@ -37,17 +47,27 @@ function refreshPage() {
 		"eeee, d MMMM, yyyy"
 	);
 
-	updateForecast(cities[0], units);
-	getLatLonFor(cities[0]).then((latLonData) => {
-		updateAirQuality(latLonData.lat, latLonData.lon);
-	});
+	let lat = cities[0].lat;
+	let lon = cities[0].lon;
+	updateForecast(lat, lon, units);
+	updateAirQuality(lat, lon);
 	updateWeather(cities, units);
 	updateSunStats(cities, units);
 }
 
 const searchBar = document.querySelector("#search");
-searchBar.addEventListener("keydown", (event) => {
-	console.log(event.code);
+searchBar.addEventListener("keydown", async (event) => {
+	if (event.code === "Enter") {
+		const searchKey = event.target.value;
+		const geoCode = await getGeoCode(searchKey);
+		if (geoCode.length === 0) {
+			console.log("Error");
+		} else if (geoCode.length === 1) {
+			cities.push(geoCode[0].name);
+			refreshPage();
+		}
+		saveLocalData();
+	}
 });
 
 loadLocalData();

@@ -71,7 +71,7 @@ function createForecastChild(temp, date, icon) {
 	return forecastInfoContainer;
 }
 
-export default async function updateForecast(city, units) {
+export default async function updateForecast(lat, lon, units) {
 	let forecastContainer = document.querySelector(".forecast");
 
 	for (const child of forecastContainer.children) {
@@ -79,7 +79,7 @@ export default async function updateForecast(city, units) {
 	}
 
 	const response = await fetch(
-		`${FORECAST_URL}?q=${city}&appid=${API_KEY}&units=${units}`
+		`${FORECAST_URL}?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=${units}`
 	);
 	const data = await response.json();
 

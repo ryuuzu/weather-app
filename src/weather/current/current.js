@@ -3,9 +3,9 @@ import "./current.css";
 import { format } from "date-fns";
 import { generateRandomColor, getMaterialSymbolRounded } from "../utils";
 
-export async function getWeatherData(city, unit) {
+export async function getWeatherData(lat, lon, unit) {
 	const response = await fetch(
-		`${CURRENT_URL}?q=${city}&appid=${API_KEY}&units=${unit}`
+		`${CURRENT_URL}?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=${unit}`
 	);
 	const data = await response.json();
 
@@ -192,11 +192,15 @@ export async function updateWeather(cities, unit) {
 
 	let otherCityWeatherData = await Promise.all(
 		otherCities.map(async (city) => {
-			return await getWeatherData(city, unit);
+			return await getWeatherData(city.lat, city.lon, unit);
 		})
 	);
 
-	const currentCityData = await getWeatherData(currentCity, unit);
+	const currentCityData = await getWeatherData(
+		currentCity.lat,
+		currentCity.lon,
+		unit
+	);
 	addCurrentWeatherHTML(currentCityData, currentCityContainer);
 
 	const otherLocationsContainer = document.querySelector(".other-locations");

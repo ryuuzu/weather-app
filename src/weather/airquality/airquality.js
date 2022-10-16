@@ -86,9 +86,9 @@ function getComponentsHTML(components) {
 function createAirQualityStuffs(airQualityData) {
 	const airQualityContainer = document.querySelector(".air-quality-holder");
 
-	for (const child of airQualityContainer.children) {
-		airQualityContainer.removeChild(child);
-	}
+	Array.from(airQualityContainer.childNodes).forEach((childNode) =>
+		airQualityContainer.removeChild(childNode)
+	);
 
 	const aqiTopBar = document.createElement("div");
 	aqiTopBar.classList.add("aqi-topbar");

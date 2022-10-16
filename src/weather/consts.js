@@ -7,3 +7,4 @@ export const CURRENT_URL = `${DATA_URL}weather`;
 export const API_KEY = "9cafb52078077411bf7a0a82cbc790c3";
 export const ICON_URL = "http://openweathermap.org/img/wn/";
 export const DEGREE = "°";
+export const TIMEZONE = Intl.DateTimeFormat().resolvedOptions().timeZone;

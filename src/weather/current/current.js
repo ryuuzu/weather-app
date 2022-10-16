@@ -186,6 +186,10 @@ export async function updateWeather(cities, unit) {
 
 	const currentCityContainer = document.querySelector(".current-location");
 
+	Array.from(currentCityContainer.childNodes).forEach((childNode) => {
+		currentCityContainer.removeChild(childNode);
+	});
+
 	let otherCityWeatherData = await Promise.all(
 		otherCities.map(async (city) => {
 			return await getWeatherData(city, unit);
@@ -196,6 +200,11 @@ export async function updateWeather(cities, unit) {
 	addCurrentWeatherHTML(currentCityData, currentCityContainer);
 
 	const otherLocationsContainer = document.querySelector(".other-locations");
+
+	Array.from(otherLocationsContainer.childNodes).forEach((childNode) => {
+		otherLocationsContainer.removeChild(childNode);
+	});
+
 	getOtherWeatherHTML(otherCityWeatherData).forEach((otherCityWeatherHTML) =>
 		otherLocationsContainer.appendChild(otherCityWeatherHTML)
 	);

@@ -1,6 +1,5 @@
 .sun-stats {
 	grid-area: sun-stats;
-	margin-top: 2.5rem;
 	padding: 20px;
 	border-radius: 28px;
 	background-color: var(--light-primary-color);
@@ -33,6 +32,7 @@
 
 .sun-stat .location-holder {
 	display: flex;
+	gap: 5px;
 	align-items: center;
 }
 

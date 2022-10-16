@@ -1,6 +1,7 @@
 import { format } from "date-fns";
+import { formatInTimeZone, utcToZonedTime } from "date-fns-tz";
 import { getWeatherData } from "../current/current";
-import { getMaterialSymbolRounded } from "../utils";
+import { getMaterialSymbolRounded, getPolyfillTimezone } from "../utils";
 import "./sunstats.css";
 
 function getSunStatsHTML(citiesWeatherData) {
@@ -48,12 +49,14 @@ function getSunStatsHTML(citiesWeatherData) {
 		sunriseLabel.textContent = "Sunrise";
 		sunriseTexts.appendChild(sunriseLabel);
 
+		const sunriseTimeZonedObject = utcToZonedTime(
+			new Date(cityWeatherData.sunrise * 1000).toISOString(),
+			getPolyfillTimezone(cityWeatherData.timezone)
+		);
+
 		const sunriseTime = document.createElement("div");
 		sunriseTime.classList.add("sunrise-time");
-		sunriseTime.textContent = format(
-			new Date(cityWeatherData.sunrise * 1000),
-			"p"
-		);
+		sunriseTime.textContent = format(sunriseTimeZonedObject, "p");
 		sunriseTexts.appendChild(sunriseTime);
 
 		const sunsetHolder = document.createElement("div");
@@ -73,12 +76,14 @@ function getSunStatsHTML(citiesWeatherData) {
 		sunsetLabel.textContent = "Sunset";
 		sunsetTexts.appendChild(sunsetLabel);
 
+		const sunsetTimeZonedObject = utcToZonedTime(
+			new Date(cityWeatherData.sunset * 1000).toISOString(),
+			getPolyfillTimezone(cityWeatherData.timezone)
+		);
+
 		const sunsetTime = document.createElement("div");
 		sunsetTime.classList.add("sunset-time");
-		sunsetTime.textContent = format(
-			new Date(cityWeatherData.sunset * 1000),
-			"p"
-		);
+		sunsetTime.textContent = format(sunsetTimeZonedObject, "p");
 		sunsetTexts.appendChild(sunsetTime);
 
 		sunStatHolder.appendChild(sunStatTopBar);
@@ -89,13 +94,18 @@ function getSunStatsHTML(citiesWeatherData) {
 }
 
 export default async function updateSunStats(cities, unit) {
+	const sunStatsHolder = document.querySelector(".sun-stats-holder");
+
+	Array.from(sunStatsHolder.childNodes).forEach((childNode) => {
+		sunStatsHolder.removeChild(childNode);
+	});
+
 	let citiesWeatherData = await Promise.all(
 		cities.map(async (city) => {
 			return await getWeatherData(city, unit);
 		})
 	);
 
-	const sunStatsHolder = document.querySelector(".sun-stats-holder");
 	getSunStatsHTML(citiesWeatherData).forEach((sunStatHTML) => {
 		sunStatsHolder.appendChild(sunStatHTML);
 	});

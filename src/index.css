@@ -16,7 +16,7 @@ body {
 	height: 100vh;
 	margin: 0;
 	width: 100vw;
-	overflow-x: hidden;
+	overflow: hidden;
 }
 
 .main-container {
@@ -49,7 +49,7 @@ body {
 
 .details-container {
 	display: grid;
-	column-gap: 2.5rem;
+	gap: 1.5rem;
 	grid-template-columns: 1fr 1fr;
 	grid-template-areas:
 		"forecast forecast"
@@ -101,8 +101,4 @@ body {
 	color: var(--text-color);
 	opacity: 0.7;
 	font-style: italic;
-}
-
-.right.panel .weather {
-	height: 100%;
 }

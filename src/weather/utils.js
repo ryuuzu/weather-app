@@ -9,6 +9,29 @@ export async function getGeoCode(locationName) {
 	return await response.json();
 }
 
+export function getPolyfillTimezone(seconds) {
+	let pfTimezone = "";
+	if (seconds > 0) {
+		pfTimezone += "+";
+	} else if (seconds < 0) {
+		pfTimezone += "-";
+		seconds *= -1;
+	} else {
+		return "+00:00";
+	}
+	let hours = Math.floor(seconds / 3600).toString();
+	let minutes = ((seconds % 3600) / 60).toString();
+	if (hours.length === 1) {
+		hours = "0" + hours;
+	}
+	if (minutes.length === 1) {
+		minutes = "0" + minutes;
+	}
+	pfTimezone += hours;
+	pfTimezone += minutes;
+	return pfTimezone;
+}
+
 export function generateRandomNumber(maxVal) {
 	return Math.floor(Math.random() * maxVal);
 }

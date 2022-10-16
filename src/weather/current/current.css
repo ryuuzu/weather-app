@@ -68,7 +68,7 @@
 	background-color: var(--background-color);
 	margin: 30px 60px;
 	display: grid;
-	row-gap: 10px;
+	row-gap: 5px;
 	grid-template-rows: 1fr 1fr;
 	grid-template-columns: 1fr 1fr;
 	grid-template-areas:
@@ -103,13 +103,12 @@
 	display: flex;
 	align-items: center;
 	font-size: 15px;
-	gap: 15px;
 	justify-content: space-between;
 }
 
 .other-location .wind-label,
 .other-location .humidity-label {
 	display: flex;
-	gap: 5px;
+	gap: 2px;
 	align-items: center;
 }

@@ -19,6 +19,7 @@ const DEFAULT_CITIES = [
 
 let units = "";
 let cities = [];
+let geoCodes = [];
 
 function saveLocalData() {
 	localStorage.setItem("cities", JSON.stringify(cities));
@@ -57,14 +58,51 @@ function refreshPage() {
 
 const searchBar = document.querySelector("#search");
 searchBar.addEventListener("keydown", async (event) => {
+	const dataList = document.querySelector("#suggestions");
+
 	if (event.code === "Enter") {
-		const searchKey = event.target.value;
-		const geoCode = await getGeoCode(searchKey);
-		if (geoCode.length === 0) {
-			console.log("Error");
-		} else if (geoCode.length === 1) {
-			cities.push(geoCode[0].name);
+		if (dataList.options.length !== 0) {
+			const optionElement =
+				dataList.options[event.target.value.split(":")[0]];
+			cities.push({
+				name: optionElement.getAttribute("name"),
+				lat: parseFloat(optionElement.getAttribute("lat")),
+				lon: parseFloat(optionElement.getAttribute("lon")),
+				country: optionElement.getAttribute("country"),
+			});
+			Array.from(dataList.childNodes).forEach((childNode) =>
+				dataList.removeChild(childNode)
+			);
+			event.target.value = "";
 			refreshPage();
+		} else {
+			const searchKey = event.target.value;
+			geoCodes = await getGeoCode(searchKey);
+			if (geoCodes.length === 0) {
+				console.log("Error");
+			} else if (geoCodes.length === 1) {
+				cities.push({
+					name: geoCodes[0].name,
+					lat: geoCodes[0].lat,
+					lon: geoCodes[0].lon,
+					country: geoCodes[0].country,
+				});
+				refreshPage();
+			} else {
+				event.target.value = "";
+				geoCodes.forEach((geoCode, index) => {
+					const optionElement = document.createElement("option");
+					optionElement.label = `${geoCode.name}, ${geoCode.country}`;
+					optionElement.value = `gc_${index}: ${geoCode.name}`;
+					optionElement.setAttribute("id", `gc_${index}`);
+					optionElement.setAttribute("name", geoCode.name);
+					optionElement.setAttribute("lat", geoCode.lat);
+					optionElement.setAttribute("lon", geoCode.lon);
+					optionElement.setAttribute("country", geoCode.country);
+
+					dataList.appendChild(optionElement);
+				});
+			}
 		}
 		saveLocalData();
 	}

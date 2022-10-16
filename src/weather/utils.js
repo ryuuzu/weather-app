@@ -4,7 +4,7 @@ const domParser = new DOMParser();
 
 export async function getGeoCode(locationName) {
 	const response = await fetch(
-		`${GEO_URL}?q=${locationName}&appid=${API_KEY}&limit=1`
+		`${GEO_URL}?q=${locationName}&appid=${API_KEY}&limit=5`
 	);
 	return await response.json();
 }

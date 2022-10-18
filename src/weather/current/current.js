@@ -192,7 +192,9 @@ export async function updateWeather(cities, unit) {
 
 	let otherCityWeatherData = await Promise.all(
 		otherCities.map(async (city) => {
-			return await getWeatherData(city.lat, city.lon, unit);
+			const weatherData = await getWeatherData(city.lat, city.lon, unit);
+			weatherData.name = city.name;
+			return weatherData;
 		})
 	);
 
@@ -201,6 +203,7 @@ export async function updateWeather(cities, unit) {
 		currentCity.lon,
 		unit
 	);
+	currentCityData.name = currentCity.name;
 	addCurrentWeatherHTML(currentCityData, currentCityContainer);
 
 	const otherLocationsContainer = document.querySelector(".other-locations");

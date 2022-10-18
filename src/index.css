@@ -19,6 +19,36 @@ body {
 	overflow: hidden;
 }
 
+.settings-menu {
+	position: absolute;
+	z-index: 10;
+	top: calc(var(--y-location) - 100px);
+	left: calc(var(--x-location) - 150px);
+	border-radius: 10px;
+}
+
+.settings-menu > * {
+	background-color: var(--secondary-color);
+	padding: 10px 20px;
+	width: fit-content;
+	cursor: pointer;
+	transition: 300ms;
+}
+
+.settings-menu div:first-child {
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+
+.settings-menu div:last-child {
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
+
+.settings-menu > *:hover {
+	background-color: var(--secondary-color-hover);
+}
+
 .main-container {
 	display: grid;
 	grid-template-columns: 5fr 2fr;

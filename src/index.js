@@ -50,6 +50,7 @@ function refreshPage() {
 
 	let lat = cities[0].lat;
 	let lon = cities[0].lon;
+	setTimeout(addEventListeners, 1000);
 	updateForecast(lat, lon, units);
 	updateAirQuality(lat, lon);
 	updateWeather(cities, units);
@@ -110,3 +111,40 @@ searchBar.addEventListener("keydown", async (event) => {
 
 loadLocalData();
 refreshPage();
+
+function addEventListeners() {
+	const sunStatsSettings = document.querySelectorAll(".sun-stat .settings");
+	sunStatsSettings.forEach((sunStatSetting) => {
+		sunStatSetting.addEventListener("click", (event) => {
+			const settingsMenu = document.createElement("div");
+			settingsMenu.classList.add("settings-menu");
+			settingsMenu.style.setProperty(
+				"--x-location",
+				`${event.screenX}px`
+			);
+			settingsMenu.style.setProperty(
+				"--y-location",
+				`${event.screenY}px`
+			);
+
+			const removeCitySettings = document.createElement("div");
+			removeCitySettings.classList.add("remove-settings");
+			removeCitySettings.textContent = "Remove City";
+
+			removeCitySettings.addEventListener("click", (event) => {
+				const sunStatHolder = event.target.parentElement.parentElement;
+				const lat = parseFloat(sunStatHolder.getAttribute("lat"));
+				const lon = parseFloat(sunStatHolder.getAttribute("lon"));
+				cities = cities.filter(
+					(city) => city.lat !== lat && city.lon !== lon
+				);
+				refreshPage();
+				saveLocalData();
+			});
+
+			settingsMenu.appendChild(removeCitySettings);
+
+			event.target.parentElement.parentElement.appendChild(settingsMenu);
+		});
+	});
+}

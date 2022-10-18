@@ -17,6 +17,10 @@
 	margin-bottom: 2rem;
 }
 
+.sun-stat .settings {
+	cursor: pointer;
+}
+
 .sun-stat {
 	padding: 15px 20px;
 	border-radius: 20px;

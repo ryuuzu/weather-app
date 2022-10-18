@@ -102,11 +102,15 @@ export default async function updateSunStats(cities, unit) {
 
 	let citiesWeatherData = await Promise.all(
 		cities.map(async (city) => {
-			return await getWeatherData(city.lat, city.lon, unit);
+			const weatherData = await getWeatherData(city.lat, city.lon, unit);
+			weatherData.name = city.name;
+			return weatherData;
 		})
 	);
 
-	getSunStatsHTML(citiesWeatherData).forEach((sunStatHTML) => {
+	getSunStatsHTML(citiesWeatherData).forEach((sunStatHTML, index) => {
+		sunStatHTML.setAttribute("lat", cities[index].lat);
+		sunStatHTML.setAttribute("lon", cities[index].lon);
 		sunStatsHolder.appendChild(sunStatHTML);
 	});
 }
